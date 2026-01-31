@@ -33,16 +33,16 @@ export default function Mailbox({ onOpen }) {
 
            {/* Mailbox Body (Outer Shell) */}
            <motion.div 
-              className="absolute inset-0 bg-[#81B29A] rounded-lg border-4 border-[#3D405B] shadow-2xl flex items-center justify-center z-20 origin-top overflow-hidden"
+              className="absolute inset-0 bg-[#FFB7B2] rounded-lg border-4 border-[#3D405B] shadow-2xl flex items-center justify-center z-20 origin-top overflow-hidden"
               initial={false}
               animate={isOpen ? { rotateX: 180, opacity: 0 } : { rotateX: 0, opacity: 1 }}
               transition={{ duration: 0.6, type: "spring" }}
            >
               {/* Texture/Decor */}
-              <div className="absolute top-0 left-0 w-full h-2 bg-[#F2CC8F]/50" />
-              <div className="absolute bottom-0 left-0 w-full h-2 bg-[#F2CC8F]/50" />
+              <div className="absolute top-0 left-0 w-full h-2 bg-white/30" />
+              <div className="absolute bottom-0 left-0 w-full h-2 bg-white/30" />
               
-              <Mail className="w-20 h-20 text-[#F2CC8F]" />
+              <Mail className="w-20 h-20 text-white/90" />
            </motion.div>
 
            {/* Letter Inside (Hidden initially) */}
@@ -59,7 +59,7 @@ export default function Mailbox({ onOpen }) {
 
            {/* Flag */}
            <motion.div 
-             className="absolute -right-6 top-10 w-4 h-20 bg-[#E07A5F] rounded-full origin-bottom z-0 border-2 border-[#3D405B]"
+             className="absolute -right-6 top-10 w-4 h-20 bg-[#FF686B] rounded-full origin-bottom z-0 border-2 border-[#3D405B]"
              initial={{ rotate: 45 }}
              animate={isOpen ? { rotate: 0 } : { rotate: isHovered ? 25 : 45 }}
            />

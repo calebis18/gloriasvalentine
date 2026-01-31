@@ -59,10 +59,10 @@ export default function Celebration() {
         🥰
       </motion.div>
       <h1 className="text-5xl font-serif text-[#3D405B] mb-6 tracking-wide">
-        I knew it!
+        AWWW MY DARLINGGGGG!
       </h1>
       <p className="text-2xl text-[#81B29A] font-medium font-sans mb-8">
-        Best Valentine Ever ❤️
+       You are the Best Valentine Ever ❤️
       </p>
       <div className="grid grid-cols-2 gap-6 bg-white p-4 rounded-lg shadow-inner">
         <div className="relative aspect-square bg-[#F4F1DE] flex items-center justify-center overflow-hidden rounded-md grayscale hover:grayscale-0 transition-all duration-500">

@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/purity */
 /* eslint-disable no-unused-vars */
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import Mailbox from './components/Mailbox';
 import LoveLetter from './components/LoveLetter';
 import Celebration from './components/Celebration';
+import Passcode from './components/Passcode';
 
 // Custom Matte Color Palette
 const COLORS = [
@@ -73,17 +75,65 @@ function FloatingParticles() {
   );
 }
 
+
+
 function App() {
-  const [step, setStep] = useState('mailbox');
+  const [step, setStep] = useState('login');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleLogin = () => {
+    setStep('mailbox');
+  };
+
+  const handleOpenMailbox = () => {
+    setStep('letter');
+    // Attempt playback
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(e => console.log("Audio play failed (waiting for interaction):", e));
+    }
+  };
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative font-sans selection:bg-[#E07A5F] selection:text-white"
          style={{ backgroundColor: '#FDFBF7', color: '#3D405B' }}>
       
+      {/* Background Music */}
+      <audio ref={audioRef} loop src="./yngbeautiful.mp3" />
+      
+      {/* Music Control */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        onClick={toggleMusic}
+        className="fixed top-4 right-4 z-50 p-2 bg-white/50 backdrop-blur-md rounded-full shadow-sm hover:bg-white/80 transition-colors"
+        title="Toggle Music"
+      >
+        {isPlaying ? '🎵' : '🔇'}
+      </motion.button>
+
       <FloatingParticles />
       
       <div className="z-10 relative w-full flex justify-center perspective-[1200px]">
         <AnimatePresence mode='wait'>
+          {step === 'login' && (
+             <Passcode key="login" onCorrect={handleLogin} />
+          )}
+
           {step === 'mailbox' && (
             <motion.div
               key="mailbox"
@@ -92,7 +142,7 @@ function App() {
               exit={{ opacity: 0, scale: 0.8, y: -30, transition: { duration: 0.6 } }}
               transition={{ type: "spring", duration: 0.8 }}
             >
-              <Mailbox onOpen={() => setStep('letter')} />
+              <Mailbox onOpen={handleOpenMailbox} />
             </motion.div>
           )}
 
@@ -122,7 +172,7 @@ function App() {
       </div>
 
       <div className="absolute bottom-6 right-6 text-[#3D405B] opacity-40 text-xs font-serif italic tracking-widest">
-        FOR YOU
+        FOR MARIA
       </div>
     </div>
   );
