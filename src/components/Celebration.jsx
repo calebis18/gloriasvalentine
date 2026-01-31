@@ -8,7 +8,13 @@ export default function Celebration() {
   useEffect(() => {
     const duration = 15 * 1000;
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+    const defaults = { 
+      startVelocity: 30, 
+      spread: 360, 
+      ticks: 60, 
+      zIndex: 0,
+      colors: ['#E07A5F', '#81B29A', '#F2CC8F', '#F4F1DE', '#3D405B'] 
+    };
 
     const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
@@ -40,35 +46,33 @@ export default function Celebration() {
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      className="text-center p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl max-w-2xl"
+      className="text-center p-12 bg-[#FDFBF7]/90 backdrop-blur-sm rounded-sm shadow-xl max-w-2xl border border-[#81B29A]/20"
     >
       <motion.div
         animate={{ 
-          rotate: [0, 10, -10, 10, 0],
-          scale: [1, 1.1, 1.1, 1]
+          rotate: [0, 5, -5, 5, 0],
+          scale: [1, 1.05, 1.05, 1]
         }}
-        transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-        className="text-8xl mb-6"
+        transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+        className="text-8xl mb-6 text-[#E07A5F]"
       >
         🥰
       </motion.div>
-      <h1 className="text-5xl font-bold text-pink-600 mb-6 font-serif">
-        Yay! I knew you'd say Yes!
+      <h1 className="text-5xl font-serif text-[#3D405B] mb-6 tracking-wide">
+        I knew it!
       </h1>
-      <p className="text-2xl text-gray-700 font-medium">
-        Best Valentine Ever! ❤️
+      <p className="text-2xl text-[#81B29A] font-medium font-sans mb-8">
+        Best Valentine Ever ❤️
       </p>
-      <div className="mt-8 grid grid-cols-2 gap-4">
-        <img 
-          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3h6OWc4Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6/26BRv0ThflsKCqLXG/giphy.gif" 
-          alt="Cute couple" 
-          className="rounded-lg shadow-md w-full h-48 object-cover"
-        />
-        <img 
-          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3h6OWc4Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6/T86i6yDyOYz7J6v9d5/giphy.gif" 
-          alt="Happy bear" 
-          className="rounded-lg shadow-md w-full h-48 object-cover"
-        />
+      <div className="grid grid-cols-2 gap-6 bg-white p-4 rounded-lg shadow-inner">
+        <div className="relative aspect-square bg-[#F4F1DE] flex items-center justify-center overflow-hidden rounded-md grayscale hover:grayscale-0 transition-all duration-500">
+           {/* Placeholder img */}
+           <span className="text-[#3D405B]/50 font-serif italic">Us 1</span>
+        </div>
+        <div className="relative aspect-square bg-[#F4F1DE] flex items-center justify-center overflow-hidden rounded-md grayscale hover:grayscale-0 transition-all duration-500">
+           {/* Placeholder img */}
+           <span className="text-[#3D405B]/50 font-serif italic">Us 2</span>
+        </div>
       </div>
     </motion.div>
   );

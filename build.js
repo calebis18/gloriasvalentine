@@ -1,4 +1,6 @@
+/* eslint-env node */
 import * as esbuild from 'esbuild';
+
 import fs from 'fs';
 
 async function build() {

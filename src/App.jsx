@@ -6,63 +6,91 @@ import Mailbox from './components/Mailbox';
 import LoveLetter from './components/LoveLetter';
 import Celebration from './components/Celebration';
 
-function FloatingHearts() {
-  const hearts = useMemo(() => Array.from({ length: 30 }).map((_, i) => ({
+// Custom Matte Color Palette
+const COLORS = [
+  '#E07A5F', // Terracotta
+  '#81B29A', // Sage Green
+  '#F2CC8F', // Soft Yellow
+  '#3D405B', // Slate
+  '#F4F1DE', // Cream (Base)
+];
+
+function FloatingParticles() {
+  const particles = useMemo(() => Array.from({ length: 40 }).map((_, i) => ({
     id: i,
     initialX: Math.random() * 100 + "vw",
-    scale: 0.5 + Math.random() * 0.8,
-    duration: 15 + Math.random() * 20,
+    scale: 0.2 + Math.random() * 0.6,
+    duration: 15 + Math.random() * 25,
     delay: Math.random() * 10,
     rotate: Math.random() * 360,
+    color: COLORS[Math.floor(Math.random() * (COLORS.length - 1))], // Exclude base cream
+    shape: Math.random() > 0.6 ? 'circle' : 'heart',
   })), []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {hearts.map((heart) => (
+      {particles.map((p) => (
         <motion.div
-          key={heart.id}
+          key={p.id}
           initial={{
             y: "110vh",
-            x: heart.initialX,
+            x: p.initialX,
             opacity: 0,
-            scale: heart.scale,
-            rotate: heart.rotate,
+            scale: p.scale,
+            rotate: p.rotate,
           }}
           animate={{
             y: "-10vh",
-            opacity: [0, 0.8, 0],
-            rotate: [heart.rotate, heart.rotate + 180],
+            opacity: [0, 0.4, 0],
+            rotate: [p.rotate, p.rotate + (Math.random() > 0.5 ? 180 : -180)],
+            x: [p.initialX, parseFloat(p.initialX) + (Math.random() > 0.5 ? 15 : -15) + "vw"],
           }}
           transition={{
-            duration: heart.duration,
+            duration: p.duration,
             repeat: Infinity,
-            delay: heart.delay,
-            ease: "linear",
+            delay: p.delay,
+            ease: "easeInOut",
           }}
-          className="absolute text-rose-300/40 text-4xl blur-[1px]"
+          className="absolute"
         >
-          ❤️
+          {p.shape === 'heart' ? (
+             <svg width="24" height="24" viewBox="0 0 24 24" fill={p.color} className="blur-[1px]">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+             </svg>
+          ) : (
+             <div 
+               className="rounded-full blur-[2px]" 
+               style={{ width: '12px', height: '12px', backgroundColor: p.color }} 
+             />
+          )}
         </motion.div>
       ))}
+      
+      {/* Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.03]" 
+           style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }} />
     </div>
   );
 }
 
 function App() {
-  // 'mailbox', 'letter', 'celebration'
   const [step, setStep] = useState('mailbox');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-stone-100 to-rose-100 flex items-center justify-center p-4 overflow-hidden relative font-sans">
-      <FloatingHearts />
+    <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative font-sans selection:bg-[#E07A5F] selection:text-white"
+         style={{ backgroundColor: '#FDFBF7', color: '#3D405B' }}>
       
-      <div className="z-10 relative w-full flex justify-center">
+      <FloatingParticles />
+      
+      <div className="z-10 relative w-full flex justify-center perspective-[1200px]">
         <AnimatePresence mode='wait'>
           {step === 'mailbox' && (
             <motion.div
               key="mailbox"
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: -30, transition: { duration: 0.6 } }}
+              transition={{ type: "spring", duration: 0.8 }}
             >
               <Mailbox onOpen={() => setStep('letter')} />
             </motion.div>
@@ -71,9 +99,10 @@ function App() {
           {step === 'letter' && (
              <motion.div
                key="letter"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0, y: -50 }}
+               initial={{ opacity: 0, y: 100, rotateX: -20 }}
+               animate={{ opacity: 1, y: 0, rotateX: 0 }}
+               exit={{ opacity: 0, y: -100, rotateX: 20 }}
+               transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1.2 }}
              >
               <LoveLetter onAccept={() => setStep('celebration')} />
             </motion.div>
@@ -84,6 +113,7 @@ function App() {
               key="celebration"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", duration: 1 }}
             >
               <Celebration />
             </motion.div>
@@ -91,8 +121,8 @@ function App() {
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-4 right-4 text-rose-400/50 text-xs font-serif italic">
-        Made with love
+      <div className="absolute bottom-6 right-6 text-[#3D405B] opacity-40 text-xs font-serif italic tracking-widest">
+        FOR YOU
       </div>
     </div>
   );

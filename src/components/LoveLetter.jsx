@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function LoveLetter({ onAccept }) {
@@ -7,79 +7,110 @@ export default function LoveLetter({ onAccept }) {
   const [isHovered, setIsHovered] = useState(false);
   
   const moveButton = () => {
-    const x = Math.random() * (window.innerWidth - 200) - (window.innerWidth / 2 - 100);
+    const x = Math.random() * (window.innerWidth - 250) - (window.innerWidth / 2 - 125);
     const y = Math.random() * (window.innerHeight - 200) - (window.innerHeight / 2 - 100);
     setNoBtnPosition({ x, y });
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        staggerChildren: 0.15,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="bg-[#fff9f0] p-8 md:p-12 rounded-lg shadow-2xl max-w-2xl w-full mx-4 my-8 relative overflow-hidden border-2 border-[#e6dcc6]"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="bg-[#FDFBF7] p-8 md:p-14 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)] max-w-2xl w-full mx-auto relative overflow-hidden ring-1 ring-[#000]/5"
     >
-      {/* Paper texture/lines */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(#d1c4a6 1px, transparent 1px)', backgroundSize: '100% 2rem' }}></div>
+      {/* Decorative Border */}
+      <div className="absolute top-4 left-4 right-4 bottom-4 border-2 border-[#81B29A]/30 rounded-sm pointer-events-none" />
 
-      <div className="relative z-10 text-center space-y-6">
-        <h2 className="text-3xl font-serif text-[#8b4513] mb-4">My Dearest...</h2>
+      {/* Wax Seal */}
+      <motion.div 
+        initial={{ scale: 0, rotate: 180 }}
+        animate={{ scale: 1, rotate: 15 }}
+        transition={{ delay: 0.5, type: 'spring' }}
+        className="absolute top-6 right-8 w-16 h-16 bg-[#E07A5F] rounded-full flex items-center justify-center shadow-md z-20"
+      >
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#FDFBF7" className="opacity-80">
+           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </motion.div>
 
-        {/* Photo Template */}
-        <div className="flex justify-center my-6">
-          <div className="bg-white p-3 shadow-lg rotate-[-2deg] hover:rotate-0 transition-transform duration-300 w-64 h-64 flex items-center justify-center border border-gray-200">
-             <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm overflow-hidden">
-                {/* Placeholder for user photo */}
-                <span className="text-center p-4">
-                  (Insert special photo here)<br/>
-                  <span className="text-xs">Edit src/components/LoveLetter.jsx</span>
+      <div className="relative z-10 text-center space-y-8">
+        <motion.h2 variants={itemVariants} className="text-4xl font-serif text-[#3D405B] mb-8 font-medium tracking-wide">
+          My Dearest
+        </motion.h2>
+
+        {/* Polaroid Photo */}
+        <motion.div variants={itemVariants} className="flex justify-center my-10 perspective-500">
+          <motion.div 
+             whileHover={{ rotate: 1, scale: 1.02, transition: { duration: 0.2 } }}
+             className="bg-white p-4 pb-16 shadow-[0_10px_20px_rgba(0,0,0,0.08)] rotate-[-2deg] w-64 h-auto border border-gray-100"
+          >
+             <div className="w-56 h-56 bg-[#F4F1DE] flex items-center justify-center text-[#81B29A] overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
+                <span className="text-center p-4 text-sm font-sans tracking-widest uppercase">
+                  (Insert Photo)
                 </span>
-                {/* Example image implementation:
-                <img src="/path/to/image.jpg" alt="Us" className="w-full h-full object-cover" /> 
-                */}
              </div>
-          </div>
+             <div className="absolute bottom-4 w-full text-center font-handwriting text-[#3D405B]/70 text-lg font-serif italic">
+                us, forever
+             </div>
+          </motion.div>
+        </motion.div>
+
+        <div className="space-y-6 font-serif text-lg text-[#3D405B]/90 leading-relaxed px-4 md:px-12">
+          <motion.p variants={itemVariants}>
+            Every day with you feels like a beautiful dream I never want to wake up from.
+          </motion.p>
+          <motion.p variants={itemVariants}>
+            You are my quiet peace and my wildest adventure.
+          </motion.p>
+          <motion.div variants={itemVariants} className="pt-8">
+             <p className="text-center font-bold text-2xl text-[#E07A5F] tracking-tight">
+               Will you be my Valentine?
+             </p>
+          </motion.div>
         </div>
 
-        <div className="space-y-4 font-serif text-lg text-[#5d4037] leading-relaxed text-left px-4">
-          <p>
-            From the moment I met you, everything changed. You bring so much light and joy into my life.
-          </p>
-          <p>
-            I wanted to ask you something very special... something that means the world to me.
-          </p>
-          <p className="text-center font-bold text-xl mt-8">
-            Will you be my Valentine?
-          </p>
-        </div>
-
-        <div className="flex justify-center gap-8 mt-12 items-center relative h-24">
-           {/* Yes Button */}
+        <motion.div variants={itemVariants} className="flex justify-center gap-6 mt-12 items-center relative h-24">
            <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-[#c75d4d] text-[#fff9f0] font-bold rounded-lg shadow-md text-xl hover:bg-[#a64d3f] transition-colors z-20 font-serif"
+            whileHover={{ scale: 1.05, backgroundColor: "#D0684E" }}
+            whileTap={{ scale: 0.98 }}
+            className="px-8 py-3 bg-[#E07A5F] text-[#FDFBF7] font-medium rounded-full shadow-lg text-lg tracking-wide transition-all z-20 font-sans"
             onClick={onAccept}
           >
-            Yes, I will! 🌹
+            Yes, I will
           </motion.button>
 
-          {/* No Button (Unclickable) */}
           <motion.button
             animate={noBtnPosition}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
             onMouseEnter={() => {
               moveButton();
               setIsHovered(true);
             }}
             onClick={moveButton}
-            className="px-8 py-3 bg-[#8d6e63] text-[#fff9f0] font-bold rounded-lg shadow-md text-xl hover:bg-[#795548] transition-colors absolute font-serif"
+            className="px-8 py-3 bg-[#8D99AE]/20 text-[#3D405B] font-medium rounded-full text-lg hover:bg-[#8D99AE]/30 transition-colors absolute font-sans"
             style={{ position: isHovered ? 'absolute' : 'relative' }}
           >
             No
           </motion.button>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
