@@ -148,7 +148,7 @@ export default function LoveLetter({ onAccept }) {
               />
            </div>
            <div className="absolute bottom-4 w-full text-center font-handwriting text-[#3D405B]/80 text-xl font-serif">
-              my maria ❤️
+              my gloria ❤️
            </div>
         </motion.div>
 
@@ -160,7 +160,7 @@ export default function LoveLetter({ onAccept }) {
              transition={{ delay: 2.5, duration: 2 }}
              className="text-2xl md:text-3xl leading-relaxed"
           >
-            My sweet darling girl, my sunshine, my cupcake, my one and only chocolate, I cherish you so much and you mean the world to me, iloveyouuuuuuusomuchhh.
+            My sweet girl i wish i could come up with a different word for love that no one's ever known then rewrite it into the dictionary just so i can prove that no one's ever love anyone the way i love you.
           </motion.p>
           
           <motion.div 
