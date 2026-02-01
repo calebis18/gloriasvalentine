@@ -172,7 +172,7 @@ function App() {
       </div>
 
       <div className="absolute bottom-6 right-6 text-[#3D405B] opacity-40 text-xs font-serif italic tracking-widest">
-        FOR MARIA
+        FOR GLORIA
       </div>
     </div>
   );
