@@ -91,7 +91,7 @@ export default function Celebration() {
           >
             <div className="w-64 h-64 md:w-80 md:h-80 bg-[#F4F1DE] overflow-hidden relative rounded-sm">
                <img 
-                 src="./maria_celebration.jpg" 
+                 src="./maria_raph.jpg" 
                  alt="Happy Maria" 
                  className="w-full h-full object-cover"
                />

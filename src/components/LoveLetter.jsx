@@ -142,7 +142,7 @@ export default function LoveLetter({ onAccept }) {
         >
            <div className="w-54 h-54 bg-[#F4F1DE] flex items-center justify-center text-[#81B29A] overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
               <img 
-                src="./maria.jpg" 
+                src="./maria1.jpg" 
                 alt="Maria" 
                 className="w-full h-full object-cover"
               />
