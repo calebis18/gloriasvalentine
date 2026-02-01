@@ -129,7 +129,7 @@ export default function LoveLetter({ onAccept }) {
       <div className="relative z-10 space-y-8 flex flex-col items-center">
         {/* Header */}
         <div className="mb-4 text-center">
-            <TypewriterText text="My Senbonzakura" delay={0.5} />
+            <TypewriterText text="My Princess" delay={0.5} />
         </div>
 
         {/* Polaroid Photo */}
