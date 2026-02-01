@@ -101,7 +101,7 @@ export default function Celebration() {
             </div>
             
             <div className="absolute -bottom-4 -right-4 bg-white px-4 py-2 rounded-full shadow-lg font-handwriting text-[#E07A5F] z-20 rotate-[-5deg] border border-[#E07A5F]/20">
-               Click me! ✨
+              
             </div>
           </motion.div>
         </div>
