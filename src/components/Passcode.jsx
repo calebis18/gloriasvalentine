@@ -10,7 +10,7 @@ export default function Passcode({ onCorrect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.toLowerCase().trim() === 'chocolate') {
+    if (input.toLowerCase().trim() === '15th July 2025') {
       onCorrect();
     } else {
       setError(true);
